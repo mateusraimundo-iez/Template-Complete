@@ -6,23 +6,21 @@ if [ "$(id -u)" -ne 0 ]; then
     exit 1
 fi
 
-# Diretórios de instalação
-INSTALL_DIR="/opt/template_complete"
+# Configurações
+APP_NAME="template-complete"
+INSTALL_DIR="/opt/$APP_NAME"
 BIN_DIR="/usr/local/bin"
 DESKTOP_DIR="/usr/share/applications"
-ICON_DIR="/usr/share/icons/hicolor/256x256/apps"
+ICON_DIR="/usr/share/icons/hicolor/48x48/apps"
 
 # Remover arquivos
-echo "Removendo arquivos do aplicativo..."
+echo "Removendo arquivos de instalação..."
 rm -rf "$INSTALL_DIR"
-rm -f "$BIN_DIR/template_complete"
-rm -f "$DESKTOP_DIR/template_complete.desktop"
-rm -f "$ICON_DIR/template_complete.png"
+rm -f "$BIN_DIR/$APP_NAME"
+rm -f "$DESKTOP_DIR/$APP_NAME.desktop"
+rm -f "$ICON_DIR/$APP_NAME.png"
 
-# Atualizar bancos de dados
-echo "Atualizando bancos de dados..."
-gtk-update-icon-cache -f -t /usr/share/icons/hicolor
-update-desktop-database
+# Atualizar banco de dados de desktop
+update-desktop-database "$DESKTOP_DIR"
 
 echo "Desinstalação concluída com sucesso!"
-echo "Template Complete foi completamente removido do sistema"
